@@ -1,8 +1,128 @@
 # Language support configuration.
 # See the languages documentation: https://docs.helix-editor.com/master/languages.html
-[[language]]
-name="html"
-language-server = { command = "vscode-html-language-server", args = ["--stdio"]}
+
+[language-server]
+
+bash-language-server = { command = "bash-language-server", args = ["start"] }
+clangd = { command = "clangd" }
+cmake-language-server = { command = "cmake-language-server" }
+dart = { command = "dart", args = ["language-server", "--client-id=helix"] }
+docker-langserver = { command = "docker-langserver", args = ["--stdio"] }
+gleam = { command = "gleam", args = ["lsp"] }
+graphql-language-service = { command = "graphql-lsp", args = ["server", "-m", "stream"] }
+intelephense = { command = "intelephense", args = ["--stdio"] }
+jdtls = { command = "jdtls", config={hints={assignVariableTypes = true,compositeLiteralFields = true,constantValues = true,functionTypeParameters = true,parameterNames = true,rangeVariableTypes = true}}}
+jsonnet-language-server = { command = "jsonnet-language-server", args= ["-t", "--lint"] }
+kotlin-language-server = { command = "kotlin-language-server" }
+ltex-ls = { command = "ltex-ls" }
+marksman = { command = "marksman", args = ["server"] }
+prisma-language-server = { command = "prisma-language-server", args = ["--stdio"] }
+pylsp = { command = "pylsp",config = {pylsp={plugins={pycodestyle={enabled=true},rope={enable=true},flake8={enabled=true,maxLineLength=120},pyflakes={enabled=true}}}}}
+pylyzer = { command = "pylyzer", args = ["--server"] }
+qmlls = { command = "qmlls" }
+slint-lsp = { command = "slint-lsp", args = [] }
+sqlls = { command = "sql-language-server", args = ["up","--method","stdio"] }
+tailwindcss-ls = { command = "tailwindcss-language-server", args = ["--stdio"] }
+vscode-css-language-server = { command = "vscode-css-language-server", args = ["--stdio"], config = { provideFormatter = true, css = { validate = { enable = true } } } }
+vscode-html-language-server = { command = "vscode-html-language-server", args = ["--stdio"], config = { provideFormatter = true } }
+vscode-json-language-server = { command = "vscode-json-language-server", args = ["--stdio"], config = { provideFormatter = true, json = { validate = { enable = true } } } }
+vuels = { command = "vue-language-server", args = ["--stdio"], config = { typescript = { tsdk = "node_modules/typescript/lib/" } } }
+yaml-language-server = { command = "yaml-language-server", args = ["--stdio"] }
+zls = { command = "zls" }
+emmet= {command="emmet-language-server",args=["--stdio"]}
+astro-ls = {command="astro-ls",args=["--stdio"]}
+eslint={command="vscode-eslint-language-server",args=["--stdio"],config={ codeActionsOnSave = { mode = "all", "source.fixAll.eslint" = true },format = { enable = true },nodePath = "",quiet = false,rulesCustomizations = [],run = "onType",validate = "on",experimental = {},problems = { shortenToSingleLine = false },codeAction={disableRuleComment = { enable = true, location = "separateLine" },showDocumentation = { enable = false }}}}
+
+
+
+[language-server.ansible-language-server]
+command = "ansible-language-server"
+args = ["--stdio"]
+
+[language-server.lua-language-server]
+command = "lua-language-server" 
+
+[language-server.lua-language-server.config.Lua.hint]
+enable = true
+arrayIndex = "Enable"
+setType = true
+paramName = "All"
+paramType = true
+await = true
+
+
+[language-server.gopls]
+command = "gopls"
+
+[language-server.gopls.config.hints]
+assignVariableTypes = true
+compositeLiteralFields = true
+constantValues = true
+functionTypeParameters = true
+parameterNames = true
+rangeVariableTypes = true
+
+[language-server.golangci-lint-lsp]
+command = "golangci-lint-langserver"
+
+[language-server.golangci-lint-lsp.config]
+command = ["golangci-lint", "run", "--out-format", "json", "--issues-exit-code=1"]
+
+
+[language-server.rust-analyzer]
+command = "rust-analyzer"
+
+[language-server.rust-analyzer.config]
+inlayHints.bindingModeHints.enable = false
+inlayHints.closingBraceHints.minLines = 10
+inlayHints.closureReturnTypeHints.enable = "with_block"
+inlayHints.discriminantHints.enable = "fieldless"
+inlayHints.lifetimeElisionHints.enable = "skip_trivial"
+inlayHints.typeHints.hideClosureInitialization = false
+
+
+[language-server.typescript-language-server]
+command = "typescript-language-server"
+args = ["--stdio"]
+config.hostInfo = "helix"
+
+[language-server.typescript-language-server.config.typescript.inlayHints]
+includeInlayEnumMemberValueHints = true
+includeInlayFunctionLikeReturnTypeHints = true
+includeInlayFunctionParameterTypeHints = true
+includeInlayParameterNameHints = "all"
+includeInlayParameterNameHintsWhenArgumentMatchesName = true
+includeInlayPropertyDeclarationTypeHints = true
+includeInlayVariableTypeHints = true
+
+[language-server.typescript-language-server.config.javascript.inlayHints]
+includeInlayEnumMemberValueHints = true
+includeInlayFunctionLikeReturnTypeHints = true
+includeInlayFunctionParameterTypeHints = true
+includeInlayParameterNameHints = "all"
+includeInlayParameterNameHintsWhenArgumentMatchesName = true
+includeInlayPropertyDeclarationTypeHints = true
+includeInlayVariableTypeHints = true
+
+[language-server.svelteserver]
+command = "svelteserver"
+args = ["--stdio"]
+
+[language-server.svelteserver.config.configuration.typescript]
+inlayHints.parameterTypes.enabled = true
+inlayHints.variableTypes.enabled = true
+inlayHints.propertyDeclarationTypes.enabled = true
+inlayHints.functionLikeReturnTypes.enabled = true
+inlayHints.enumMemberValues.enabled = true
+inlayHints.parameterNames.enabled = "all"
+
+[language-server.svelteserver.config.configuration.javascript]
+inlayHints.parameterTypes.enabled = true
+inlayHints.variableTypes.enabled = true
+inlayHints.propertyDeclarationTypes.enabled = true
+inlayHints.functionLikeReturnTypes.enabled = true
+inlayHints.enumMemberValues.enabled = true
+inlayHints.parameterNames.enabled = "all"
 
 [[language]]
 name = "rust"
@@ -11,8 +131,8 @@ injection-regex = "rust"
 file-types = ["rs"]
 roots = ["Cargo.toml", "Cargo.lock"]
 auto-format = true
-comment-token = "//"
-language-server = { command = "rust-analyzer" }
+comment-tokens = ["//","#"]
+language-servers = [ "rust-analyzer" ]
 indent = { tab-width = 4, unit = "    " }
 
 [language.auto-pairs]
@@ -59,58 +179,15 @@ source = { git = "https://github.com/tree-sitter/tree-sitter-rust", rev = "0431a
 name = "toml"
 scope = "source.toml"
 injection-regex = "toml"
-file-types = ["toml"]
+file-types = ["toml", "poetry.lock", "Cargo.lock"]
 roots = []
 comment-token = "#"
-language-server = { command = "taplo", args = ["lsp", "stdio"] }
+language-servers = [ "taplo" ]
 indent = { tab-width = 2, unit = "  " }
 
 [[grammar]]
 name = "toml"
 source = { git = "https://github.com/ikatyang/tree-sitter-toml", rev = "7cff70bbcbbc62001b465603ca1ea88edd668704" }
-
-[[language]]
-name = "awk"
-scope = "source.awk"
-injection-regex = "awk"
-file-types = ["awk", "gawk", "nawk", "mawk"]
-roots = []
-comment-token = "#"
-language-server = { command = "awk-language-server" }
-indent = { tab-width = 2, unit = "  " }
-
-[[grammar]]
-name = "awk"
-source = { git = "https://github.com/Beaglefoot/tree-sitter-awk", rev = "a799bc5da7c2a84bc9a06ba5f3540cf1191e4ee3" }
-
-[[language]]
-name = "protobuf"
-scope = "source.proto"
-injection-regex = "protobuf"
-file-types = ["proto"]
-roots = []
-comment-token = "//"
-indent = { tab-width = 2, unit = "  " }
-
-[[grammar]]
-name = "protobuf"
-source = { git = "https://github.com/yusdacra/tree-sitter-protobuf", rev = "19c211a01434d9f03efff99f85e19f967591b175"}
-
-[[language]]
-name = "elixir"
-scope = "source.elixir"
-injection-regex = "(elixir|ex)"
-file-types = ["ex", "exs", "mix.lock"]
-shebangs = ["elixir"]
-roots = ["mix.exs", "mix.lock"]
-comment-token = "#"
-language-server = { command = "elixir-ls" }
-config = { elixirLS.dialyzerEnabled = false }
-indent = { tab-width = 2, unit = "  " }
-
-[[grammar]]
-name = "elixir"
-source = { git = "https://github.com/elixir-lang/tree-sitter-elixir", rev = "b20eaa75565243c50be5e35e253d8beb58f45d56"  }
 
 [[language]]
 name = "fish"
@@ -127,30 +204,55 @@ name = "fish"
 source = { git = "https://github.com/ram02z/tree-sitter-fish", rev = "84436cf24c2b3176bfbb220922a0fdbd0141e406" }
 
 [[language]]
-name = "mint"
-scope = "source.mint"
-injection-regex = "mint"
-file-types = ["mint"]
-shebangs = []
-roots = []
-comment-token = "//"
-language-server = { command = "mint", args = ["ls"] }
-indent = { tab-width = 2, unit = "  " }
-
-[[language]]
 name = "json"
 scope = "source.json"
 injection-regex = "json"
-file-types = ["json", "jsonc"]
+file-types = [
+  "json",
+  "jsonc",
+  "arb",
+  "ipynb",
+  "geojson",
+  "gltf",
+  "webmanifest",
+  "flake.lock",
+  ".babelrc",
+  ".bowerrc",
+  ".jscrc",
+  "js.map",
+  "ts.map",
+  "css.map",
+  ".jslintrc",
+  "jsonld",
+  ".vuerc",
+  "composer.lock",
+  ".watchmanconfig"
+]
 roots = []
-language-server = { command = "vscode-json-language-server", args = ["--stdio"] }
+language-servers = [ "vscode-json-language-server" ]
 auto-format = true
-config = { "provideFormatter" = true }
+formatter = { command = "dprint", args = [ "fmt", "--stdin", "typescript" ] }
 indent = { tab-width = 2, unit = "  " }
 
 [[grammar]]
 name = "json"
 source = { git = "https://github.com/tree-sitter/tree-sitter-json", rev = "73076754005a460947cafe8e03a8cf5fa4fa2938" }
+
+
+[[language]]
+name = "json5"
+scope = "source.json5"
+injection-regex = "json5"
+file-types = ["json5"]
+roots = []
+language-servers = []
+comment-token = "//"
+indent = { tab-width = 4, unit = "    " }
+# https://json5.org
+
+[[grammar]]
+name = "json5"
+source = { git = "https://github.com/Joakker/tree-sitter-json5", rev = "c23f7a9b1ee7d45f516496b1e0e4be067264fa0d" }
 
 [[language]]
 name = "c"
@@ -159,7 +261,7 @@ injection-regex = "c"
 file-types = ["c"] # TODO: ["h"]
 roots = []
 comment-token = "//"
-language-server = { command = "clangd" }
+language-servers = [ "clangd" ]
 indent = { tab-width = 2, unit = "  " }
 
 [language.debugger]
@@ -193,10 +295,10 @@ source = { git = "https://github.com/tree-sitter/tree-sitter-c", rev = "7175a6dd
 name = "cpp"
 scope = "source.cpp"
 injection-regex = "cpp"
-file-types = ["cc", "hh", "c++", "cpp", "hpp", "h", "ipp", "tpp", "cxx", "hxx", "ixx", "txx", "ino"]
+file-types = ["cc", "hh", "c++", "cpp", "hpp", "h", "ipp", "tpp", "cxx", "hxx", "ixx", "txx", "ino", "C", "H", "cu", "cuh", "cppm", "h++", "ii", "inl", { glob = ".hpp.in" }, { glob = ".h.in" }]
 roots = []
 comment-token = "//"
-language-server = { command = "clangd" }
+language-servers = [ "clangd" ]
 indent = { tab-width = 2, unit = "  " }
 
 [language.debugger]
@@ -224,59 +326,17 @@ args = { console = "internalConsole", attachCommands = [ "platform select remote
 
 [[grammar]]
 name = "cpp"
-source = { git = "https://github.com/tree-sitter/tree-sitter-cpp", rev = "2d2c4aee8672af4c7c8edff68e7dd4c07e88d2b1" }
-
-[[language]]
-name = "crystal"
-scope = "source.cr"
-file-types = ["cr"]
-roots = ["shard.yml", "shard.lock"]
-comment-token = "#"
-indent = { tab-width = 2, unit = "  " }
-grammar = "ruby"
-
-[[language]]
-name = "c-sharp"
-scope = "source.csharp"
-injection-regex = "c-?sharp"
-file-types = ["cs"]
-roots = ["sln", "csproj"]
-comment-token = "//"
-indent = { tab-width = 4, unit = "\t" }
-language-server = { command = "OmniSharp", args = [ "--languageserver" ] }
-
-[language.debugger]
-name = "netcoredbg"
-transport = "tcp"
-command = "netcoredbg"
-args = [ "--interpreter=vscode" ]
-port-arg = "--server={}"
-
-[[language.debugger.templates]]
-name = "launch"
-request = "launch"
-completion = [ { name = "path to dll", completion = "filename" } ]
-args = { type = "coreclr", console = "internalConsole", internalConsoleOptions = "openOnSessionStart", program = "{0}" }
-
-[[language.debugger.templates]]
-name = "attach"
-request = "attach"
-completion = [ "pid" ]
-args = { processId = "{0}" }
-
-[[grammar]]
-name = "c-sharp"
-source = { git = "https://github.com/tree-sitter/tree-sitter-c-sharp", rev = "5b60f99545fea00a33bbfae5be956f684c4c69e2" }
+source = { git = "https://github.com/tree-sitter/tree-sitter-cpp", rev = "670404d7c689be1c868a46f919ba2a3912f2b7ef" }
 
 [[language]]
 name = "go"
 scope = "source.go"
 injection-regex = "go"
 file-types = ["go"]
-roots = ["Gopkg.toml", "go.mod"]
+roots = ["go.work", "go.mod"]
 auto-format = true
 comment-token = "//"
-language-server = { command = "gopls" }
+language-servers = [ "gopls", "golangci-lint-lsp" ]
 # TODO: gopls needs utf-8 offsets?
 indent = { tab-width = 4, unit = "\t" }
 
@@ -311,9 +371,15 @@ request = "attach"
 completion = [ "pid" ]
 args = { mode = "local", processId = "{0}" }
 
+[[language.debugger.templates]]
+name = "core"
+request = "launch"
+completion = [ { name = "binary", completion = "filename" }, { name = "core", completion = "filename" } ]
+args = { mode = "core", program = "{0}", coreFilePath = "{1}" }
+
 [[grammar]]
 name = "go"
-source = { git = "https://github.com/tree-sitter/tree-sitter-go", rev = "05900faa3cdb5d2d8c8bd5e77ee698487e0a8611" }
+source = { git = "https://github.com/tree-sitter/tree-sitter-go", rev = "64457ea6b73ef5422ed1687178d4545c3e91334a" }
 
 [[language]]
 name = "gomod"
@@ -323,7 +389,7 @@ file-types = ["go.mod"]
 roots = []
 auto-format = true
 comment-token = "//"
-language-server = { command = "gopls" }
+language-servers = [ "gopls" ]
 indent = { tab-width = 4, unit = "\t" }
 
 [[grammar]]
@@ -337,7 +403,7 @@ injection-regex = "gotmpl"
 file-types = ["gotmpl"]
 roots = []
 comment-token = "//"
-language-server = { command = "gopls" }
+language-servers = [ "gopls" ]
 indent = { tab-width = 2, unit = " " }
 
 [[grammar]]
@@ -352,7 +418,7 @@ file-types = ["go.work"]
 roots = []
 auto-format = true
 comment-token = "//"
-language-server = { command = "gopls" }
+language-servers = [ "gopls" ]
 indent = { tab-width = 4, unit = "\t" }
 
 [[grammar]]
@@ -363,12 +429,17 @@ source = { git = "https://github.com/omertuc/tree-sitter-go-work", rev = "6dd9dd
 name = "javascript"
 scope = "source.js"
 injection-regex = "(js|javascript)"
-file-types = ["js", "mjs", "cjs"]
+language-id = "javascript"
+file-types = ["js", "mjs", "cjs", "rules", "es6", "pac", "jakefile"]
 shebangs = ["node"]
 roots = []
 comment-token = "//"
-# TODO: highlights-params
-language-server = { command = "typescript-language-server", args = ["--stdio"], language-id = "javascript" }
+formatter = { command = "prettier", args = ["--parser", "javascript" ] }
+auto-format = true
+language-servers = [
+  {name="typescript-language-server",except-features = ["format", "diagnostics"]},
+  "eslint"
+]
 indent = { tab-width = 2, unit = "  " }
 
 [language.debugger]
@@ -385,16 +456,19 @@ args = { program = "{0}" }
 
 [[grammar]]
 name = "javascript"
-source = { git = "https://github.com/tree-sitter/tree-sitter-javascript", rev = "4a95461c4761c624f2263725aca79eeaefd36cad" }
+source = { git = "https://github.com/tree-sitter/tree-sitter-javascript", rev = "f772967f7b7bc7c28f845be2420a38472b16a8ee" }
 
 [[language]]
 name = "jsx"
 scope = "source.jsx"
 injection-regex = "jsx"
+language-id = "javascriptreact"
 file-types = ["jsx"]
 roots = []
 comment-token = "//"
-language-server = { command = "typescript-language-server", args = ["--stdio"], language-id = "javascriptreact" }
+formatter = { command = "prettier", args = [ "--parser", "jsx" ] }
+auto-format = true
+language-servers = [ "typescript-language-server","tailwindcss-ls","eslint","emmet"]
 indent = { tab-width = 2, unit = "  " }
 grammar = "javascript"
 
@@ -402,30 +476,34 @@ grammar = "javascript"
 name = "typescript"
 scope = "source.ts"
 injection-regex = "(ts|typescript)"
-file-types = ["ts"]
-shebangs = []
+file-types = ["ts", "mts", "cts"]
+language-id = "typescript"
+shebangs = ["deno", "ts-node"]
 roots = []
-# TODO: highlights-params
-language-server = { command = "typescript-language-server", args = ["--stdio"], language-id = "typescript"}
+formatter = { command = "prettier", args = [ "--parser", "typescript" ] }
+auto-format = true
+language-servers = [ "typescript-language-server","eslint" ]
 indent = { tab-width = 2, unit = "  " }
 
 [[grammar]]
 name = "typescript"
-source = { git = "https://github.com/tree-sitter/tree-sitter-typescript", rev = "6aac031ad88dd6317f02ac0bb27d099a553a7d8c", subpath = "typescript" }
+source = { git = "https://github.com/tree-sitter/tree-sitter-typescript", rev = "b1bf4825d9eaa0f3bdeb1e52f099533328acfbdf", subpath = "typescript" }
 
 [[language]]
 name = "tsx"
 scope = "source.tsx"
 injection-regex = "(tsx)" # |typescript
+language-id = "typescriptreact"
 file-types = ["tsx"]
 roots = []
-# TODO: highlights-params
-language-server = { command = "typescript-language-server", args = ["--stdio"], language-id = "typescriptreact" }
+formatter = { command = "prettier", args = [ "--parser", "tsx" ] }
+auto-format = true
+language-servers = [ "typescript-language-server","tailwindcss-ls","eslint","emmet"]
 indent = { tab-width = 2, unit = "  " }
 
 [[grammar]]
 name = "tsx"
-source = { git = "https://github.com/tree-sitter/tree-sitter-typescript", rev = "6aac031ad88dd6317f02ac0bb27d099a553a7d8c", subpath = "tsx" }
+source = { git = "https://github.com/tree-sitter/tree-sitter-typescript", rev = "b1bf4825d9eaa0f3bdeb1e52f099533328acfbdf", subpath = "tsx" }
 
 [[language]]
 name = "css"
@@ -433,9 +511,9 @@ scope = "source.css"
 injection-regex = "css"
 file-types = ["css", "scss"]
 roots = []
-language-server = { command = "vscode-css-language-server", args = ["--stdio"] }
+formatter = { command = "prettier", args = [ "--parser", "css" ] }
 auto-format = true
-config = { "provideFormatter" = true }
+language-servers = [ "vscode-css-language-server","tailwindcss-ls","emmet"]
 indent = { tab-width = 2, unit = "  " }
 
 [[grammar]]
@@ -448,9 +526,8 @@ scope = "source.scss"
 injection-regex = "scss"
 file-types = ["scss"]
 roots = []
-language-server = { command = "vscode-css-language-server", args = ["--stdio"] }
+language-servers = [ "vscode-css-language-server","emmet"]
 auto-format = true
-config = { "provideFormatter" = true }
 indent = { tab-width = 2, unit = "  " }
 
 [[grammar]]
@@ -461,11 +538,11 @@ source = { git = "https://github.com/serenadeai/tree-sitter-scss", rev = "c478c6
 name = "html"
 scope = "text.html.basic"
 injection-regex = "html"
-file-types = ["html"]
+file-types = ["html", "htm", "shtml", "xhtml", "xht", "jsp", "asp", "aspx", "jshtm", "volt", "rhtml"]
 roots = []
-language-server = { command = "vscode-html-language-server", args = ["--stdio"] }
+formatter = { command = "prettier", args = [ "--parser", "html" ] }
 auto-format = true
-config = { "provideFormatter" = true }
+language-servers = [ "vscode-html-language-server","tailwindcss-ls","emmet" ]
 indent = { tab-width = 2, unit = "  " }
 
 [[grammar]]
@@ -476,72 +553,66 @@ source = { git = "https://github.com/tree-sitter/tree-sitter-html", rev = "29f53
 name = "python"
 scope = "source.python"
 injection-regex = "python"
-file-types = ["py"]
+file-types = ["py","pyi","py3","pyw","ptl",".pythonstartup",".pythonrc","SConstruct", "rpy", "cpy", "ipy", "pyt", "SConscript"]
 shebangs = ["python"]
-roots = []
+roots = ["pyproject.toml", "setup.py", "poetry.lock", "pyrightconfig.json"]
 comment-token = "#"
-language-server = { command = "pylsp" }
+language-servers = [ "pylsp","pylyzer" ]
 # TODO: pyls needs utf-8 offsets
 indent = { tab-width = 4, unit = "    " }
-
 [[grammar]]
 name = "python"
 source = { git = "https://github.com/tree-sitter/tree-sitter-python", rev = "de221eccf9a221f5b85474a553474a69b4b5784d" }
 
 [[language]]
-name = "nickel"
-scope = "source.nickel"
-injection-regex = "nickel"
-file-types = ["ncl"]
-shebangs = []
-roots = []
-comment-token = "#"
-language-server = { command = "nls" }
-indent = { tab-width = 2, unit = "  " }
-
-[[grammar]]
-name = "nickel"
-source = { git = "https://github.com/nickel-lang/tree-sitter-nickel", rev = "9d83db400b6c11260b9106f131f93ddda8131933" }
-
-[[language]]
-name = "nix"
-scope = "source.nix"
-injection-regex = "nix"
-file-types = ["nix"]
-shebangs = []
-roots = []
-comment-token = "#"
-language-server = { command = "nil" }
-indent = { tab-width = 2, unit = "  " }
-
-[[grammar]]
-name = "nix"
-source = { git = "https://github.com/cstrahan/tree-sitter-nix", rev = "6b71a810c0acd49b980c50fc79092561f7cee307" }
-
-[[language]]
-name = "ruby"
-scope = "source.ruby"
-injection-regex = "ruby"
-file-types = ["rb", "rake", "rakefile", "irb", "gemfile", "gemspec", "Rakefile", "Gemfile", "rabl", "jbuilder", "jb"]
-shebangs = ["ruby"]
-roots = []
-comment-token = "#"
-language-server = { command = "solargraph", args = ["stdio"] }
-indent = { tab-width = 2, unit = "  " }
-
-[[grammar]]
-name = "ruby"
-source = { git = "https://github.com/tree-sitter/tree-sitter-ruby", rev = "4c600a463d97e36a0ca5ac57e11f3ac8c297a0fa" }
-
-[[language]]
 name = "bash"
 scope = "source.bash"
 injection-regex = "(shell|bash|zsh|sh)"
-file-types = ["sh", "bash", "zsh", ".bash_login", ".bash_logout", ".bash_profile", ".bashrc", ".profile", ".zshenv", ".zlogin", ".zlogout", ".zprofile", ".zshrc", "APKBUILD", "PKGBUILD", "eclass", "ebuild", "bazelrc", ".bash_aliases"]
+file-types = [
+  "sh",
+  "bash",
+  "zsh",
+  ".bash_login",
+  ".bash_logout",
+  ".bash_profile",
+  ".bashrc",
+  ".profile",
+  ".zshenv",
+  "zshenv",
+  ".zlogin",
+  "zlogin",
+  ".zlogout",
+  "zlogout",
+  ".zprofile",
+  "zprofile",
+  ".zshrc",
+  "zshrc",
+  ".zimrc",
+  "APKBUILD",
+  "PKGBUILD",
+  "eclass",
+  "ebuild",
+  "bazelrc",
+  ".bash_aliases",
+  "Renviron",
+  ".Renviron",
+  ".xprofile",
+  ".xsession",
+  ".xsessionrc",
+  "zsh-theme",
+  "ksh",
+  "cshrc",
+  "tcshrc",
+  ".yashrc",
+  ".yash_profile",
+  ".hushlogin",
+  "bashrc_Apple_Terminal",
+  "zshrc_Apple_Terminal"
+]
 shebangs = ["sh", "bash", "dash", "zsh"]
 roots = []
 comment-token = "#"
-language-server = { command = "bash-language-server", args = ["start"] }
+language-servers = [ "bash-language-server" ]
 indent = { tab-width = 2, unit = "  " }
 
 [[grammar]]
@@ -552,15 +623,15 @@ source = { git = "https://github.com/tree-sitter/tree-sitter-bash", rev = "275ef
 name = "php"
 scope = "source.php"
 injection-regex = "php"
-file-types = ["php", "inc"]
+file-types = ["php", "inc", "php4", "php5", "phtml", "ctp"]
 shebangs = ["php"]
 roots = ["composer.json", "index.php"]
-language-server = { command = "intelephense", args = ["--stdio"] }
+language-servers = [ "intelephense","emmet" ]
 indent = { tab-width = 4, unit = "    " }
 
 [[grammar]]
 name = "php"
-source = { git = "https://github.com/tree-sitter/tree-sitter-php", rev = "57f855461aeeca73bd4218754fb26b5ac143f98f" }
+source = { git = "https://github.com/tree-sitter/tree-sitter-php", rev = "f860e598194f4a71747f91789bf536b393ad4a56" }
 
 [[language]]
 name = "twig"
@@ -578,10 +649,10 @@ source = { git = "https://github.com/gbprod/tree-sitter-twig", rev = "807b293fec
 name = "latex"
 scope = "source.tex"
 injection-regex = "tex"
-file-types = ["tex"]
+file-types = ["tex", "sty", "cls", "Rd", "bbx", "cbx"]
 roots = []
 comment-token = "%"
-language-server = { command = "texlab" }
+language-servers = [ "texlab" ]
 indent = { tab-width = 4, unit = "\t" }
 
 [[grammar]]
@@ -589,144 +660,28 @@ name = "latex"
 source = { git = "https://github.com/latex-lsp/tree-sitter-latex", rev = "8c75e93cd08ccb7ce1ccab22c1fbd6360e3bcea6" }
 
 [[language]]
-name = "bibtex"
-scope = "source.bib"
-injection-regex = "bib"
-file-types = ["bib"]
-roots = []
-comment-token = "%"
-language-server = { command = "texlab" }
-indent = { tab-width = 4, unit = "\t" }
-auto-format = true
-
-[language.formatter]
-command = 'bibtex-tidy'
-args = [
-  "-",
-  "--curly",
-  "--drop-all-caps",
-  "--remove-empty-fields",
-  "--sort-fields",
-  "--sort=year,author,id",
-  "--strip-enclosing-braces",
-  "--trailing-commas",
-]
-
-[[grammar]]
-name = "bibtex"
-source = { git = "https://github.com/latex-lsp/tree-sitter-bibtex", rev = "ccfd77db0ed799b6c22c214fe9d2937f47bc8b34" }
-
-[[language]]
-name = "lean"
-scope = "source.lean"
-injection-regex = "lean"
-file-types = ["lean"]
-roots = [ "lakefile.lean" ]
-comment-token = "--"
-language-server = { command = "lean", args = [ "--server" ] }
-indent = { tab-width = 2, unit = "  " }
-
-[[grammar]]
-name = "lean"
-source = { git = "https://github.com/Julian/tree-sitter-lean", rev = "d98426109258b266e1e92358c5f11716d2e8f638" }
-
-[[language]]
-name = "julia"
-scope = "source.julia"
-injection-regex = "julia"
-file-types = ["jl"]
-roots = ["Manifest.toml", "Project.toml"]
-comment-token = "#"
-language-server = { command = "julia", timeout = 60, args = [
-    "--startup-file=no",
-    "--history-file=no",
-    "--quiet",
-    "-e",
-    "using LanguageServer; runserver()",
-    ] }
-indent = { tab-width = 4, unit = "    " }
-
-[[grammar]]
-name = "julia"
-source = { git = "https://github.com/tree-sitter/tree-sitter-julia", rev = "8fb38abff74652c4faddbf04d2d5bbbc6b4bae25" }
-
-[[language]]
 name = "java"
 scope = "source.java"
 injection-regex = "java"
-file-types = ["java"]
-#roots = ["pom.xml"]
-language-server = { command = "jdtls" }
-indent = { tab-width = 4, unit = "    " }
+file-types = ["java", "jav"]
+roots = ["pom.xml", "build.gradle", "build.gradle.kts"]
+language-servers = [ "jdtls" ]
+indent = { tab-width = 2, unit = "  " }
 
 [[grammar]]
 name = "java"
 source = { git = "https://github.com/tree-sitter/tree-sitter-java", rev = "09d650def6cdf7f479f4b78f595e9ef5b58ce31e" }
 
 [[language]]
-name = "ledger"
-scope = "source.ledger"
-injection-regex = "ledger"
-file-types = ["ldg", "ledger", "journal"]
-roots = []
-comment-token = ";"
-indent = { tab-width = 4, unit = "    " }
-
-[[grammar]]
-name = "ledger"
-source = { git = "https://github.com/cbarrete/tree-sitter-ledger", rev = "1f864fb2bf6a87fe1b48545cc6adc6d23090adf7" }
-
-[[language]]
-name = "beancount"
-scope = "source.beancount"
-injection-regex = "beancount"
-file-types = ["beancount", "bean"]
-roots = []
-comment-token = ";"
-indent = { tab-width = 2, unit = "  " }
-
-[[grammar]]
-name = "beancount"
-source = { git = "https://github.com/polarmutex/tree-sitter-beancount", rev = "4cbd1f09cd07c1f1fabf867c2cf354f9da53cc4c" }
-
-[[language]]
-name = "ocaml"
-scope = "source.ocaml"
-injection-regex = "ocaml"
-file-types = ["ml"]
-shebangs = []
-roots = []
-comment-token = "(**)"
-language-server = { command = "ocamllsp" }
-indent = { tab-width = 2, unit = "  " }
-
-[[grammar]]
-name = "ocaml"
-source = { git = "https://github.com/tree-sitter/tree-sitter-ocaml", rev = "23d419ba45789c5a47d31448061557716b02750a", subpath = "ocaml" }
-
-[[language]]
-name = "ocaml-interface"
-scope = "source.ocaml.interface"
-file-types = ["mli"]
-shebangs = []
-roots = []
-comment-token = "(**)"
-language-server = { command = "ocamllsp" }
-indent = { tab-width = 2, unit = "  " }
-
-[[grammar]]
-name = "ocaml-interface"
-source = { git = "https://github.com/tree-sitter/tree-sitter-ocaml", rev = "23d419ba45789c5a47d31448061557716b02750a", subpath = "interface" }
-
-[[language]]
 name = "lua"
+injection-regex = "lua"
 scope = "source.lua"
 file-types = ["lua"]
 shebangs = ["lua"]
 roots = [".luarc.json", ".luacheckrc", ".stylua.toml", "selene.toml", ".git"]
 comment-token = "--"
 indent = { tab-width = 2, unit = "  " }
-language-server = { command = "lua-language-server", args = [] }
+language-servers = [ "lua-language-server" ]
 
 [[grammar]]
 name = "lua"
@@ -739,20 +694,20 @@ injection-regex = "svelte"
 file-types = ["svelte"]
 roots = []
 indent = { tab-width = 2, unit = "  " }
-language-server = { command = "svelteserver", args = ["--stdio"] }
+language-servers = [ "tailwindcss-ls","svelteserver","eslint","emmet"]
 
 [[grammar]]
 name = "svelte"
-source = { git = "https://github.com/Himujjal/tree-sitter-svelte", rev = "349a5984513b4a4a9e143a6e746120c6ff6cf6ed" }
+source = { git = "https://github.com/Himujjal/tree-sitter-svelte", rev = "be7f2e7db1fc19f0852265ec60923fc058380739" }
 
 [[language]]
 name = "vue"
 scope = "source.vue"
 injection-regex = "vue"
 file-types = ["vue"]
-roots = ["package.json", "vue.config.js"]
+roots = ["package.json"]
 indent = { tab-width = 2, unit = "  " }
-language-server = { command = "vls" }
+language-servers = [ "vuels" ]
 
 [[grammar]]
 name = "vue"
@@ -765,39 +720,12 @@ file-types = ["yml", "yaml"]
 roots = []
 comment-token = "#"
 indent = { tab-width = 2, unit = "  " }
-language-server = { command = "yaml-language-server", args = ["--stdio"] }
+language-servers = [ "yaml-language-server", "ansible-language-server" ]
 injection-regex = "yml|yaml"
 
 [[grammar]]
 name = "yaml"
 source = { git = "https://github.com/ikatyang/tree-sitter-yaml", rev = "0e36bed171768908f331ff7dff9d956bae016efb" }
-
-[[language]]
-name = "haskell"
-scope = "source.haskell"
-injection-regex = "haskell"
-file-types = ["hs", "hs-boot"]
-roots = ["Setup.hs", "stack.yaml", "*.cabal"]
-comment-token = "--"
-language-server = { command = "haskell-language-server-wrapper", args = ["--lsp"] }
-indent = { tab-width = 2, unit = "  " }
-
-[[grammar]]
-name = "haskell"
-source = { git = "https://github.com/tree-sitter/tree-sitter-haskell", rev = "b6ec26f181dd059eedd506fa5fbeae1b8e5556c8" }
-
-[[language]]
-name = "purescript"
-scope = "source.purescript"
-injection-regex = "purescript"
-file-types = ["purs"]
-roots = ["spago.dhall", "bower.json"]
-comment-token = "--"
-language-server = { command = "purescript-language-server", args = ["--stdio"] }
-indent = { tab-width = 2, unit = "  " }
-auto-format = true
-formatter = { command = "purs-tidy", args = ["format"] }
-grammar = "haskell"
 
 [[language]]
 name = "zig"
@@ -807,7 +735,7 @@ file-types = ["zig"]
 roots = ["build.zig"]
 auto-format = true
 comment-token = "//"
-language-server = { command = "zls" }
+language-servers = [ "zls" ]
 indent = { tab-width = 4, unit = "    " }
 formatter = { command = "zig" , args = ["fmt", "--stdin"] }
 
@@ -836,32 +764,7 @@ args = { console = "internalConsole", attachCommands = [ "platform select remote
 
 [[grammar]]
 name = "zig"
-source = { git = "https://github.com/maxxnino/tree-sitter-zig", rev = "8d3224c3bd0890fe08358886ebf54fca2ed448a6" }
-
-[[language]]
-name = "prolog"
-scope = "source.prolog"
-roots = []
-file-types = ["pl", "prolog"]
-shebangs = ["swipl"]
-comment-token = "%"
-language-server = { command = "swipl", args = [
-    "-g", "use_module(library(lsp_server))",
-    "-g", "lsp_server:main",
-    "-t", "halt", "--", "stdio"] }
-
-[[language]]
-name = "tsq"
-scope = "source.tsq"
-file-types = ["scm"]
-roots = []
-comment-token = ";"
-injection-regex = "tsq"
-indent = { tab-width = 2, unit = "  " }
-
-[[grammar]]
-name = "tsq"
-source = { git = "https://github.com/the-mikedavis/tree-sitter-tsq", rev = "48b5e9f82ae0a4727201626f33a17f69f8e0ff86" }
+source = { git = "https://github.com/maxxnino/tree-sitter-zig", rev = "0d08703e4c3f426ec61695d7617415fff97029bd" }
 
 [[language]]
 name = "cmake"
@@ -870,7 +773,7 @@ file-types = ["cmake", "CMakeLists.txt"]
 roots = []
 comment-token = "#"
 indent = { tab-width = 2, unit = "  " }
-language-server = { command = "cmake-language-server" }
+language-servers = [ "cmake-language-server" ]
 injection-regex = "cmake"
 
 [[grammar]]
@@ -880,8 +783,9 @@ source = { git = "https://github.com/uyha/tree-sitter-cmake", rev = "6e51463ef30
 [[language]]
 name = "make"
 scope = "source.make"
-file-types = ["Makefile", "makefile", "mk", "justfile", ".justfile"]
-injection-regex = "(make|makefile|Makefile|mk|just)"
+file-types = ["Makefile", "makefile", "make", "mk", "mak", "GNUmakefile", "OCamlMakefile"]
+shebangs = ["make", "gmake"]
+injection-regex = "(make|makefile|Makefile|mk)"
 roots = []
 comment-token = "#"
 indent = { tab-width = 4, unit = "\t" }
@@ -889,59 +793,6 @@ indent = { tab-width = 4, unit = "\t" }
 [[grammar]]
 name = "make"
 source = { git = "https://github.com/alemuller/tree-sitter-make", rev = "a4b9187417d6be349ee5fd4b6e77b4172c6827dd" }
-
-[[language]]
-name = "glsl"
-scope = "source.glsl"
-file-types = ["glsl", "vert", "tesc", "tese", "geom", "frag", "comp" ]
-roots = []
-comment-token = "//"
-indent = { tab-width = 4, unit = "    " }
-injection-regex = "glsl"
-
-[[grammar]]
-name = "glsl"
-source = { git = "https://github.com/theHamsta/tree-sitter-glsl", rev = "88408ffc5e27abcffced7010fc77396ae3636d7e" }
-
-[[language]]
-name = "perl"
-scope = "source.perl"
-file-types = ["pl", "pm", "t"]
-shebangs = ["perl"]
-roots = []
-comment-token = "#"
-indent = { tab-width = 2, unit = "  " }
-
-[[grammar]]
-name = "perl"
-source = { git = "https://github.com/ganezdragon/tree-sitter-perl", rev = "0ac2c6da562c7a2c26ed7e8691d4a590f7e8b90a" }
-
-[[language]]
-name = "racket"
-scope = "source.racket"
-roots = []
-file-types = ["rkt", "rktd", "rktl", "scrbl"]
-shebangs = ["racket"]
-comment-token = ";"
-language-server = { command = "racket", args = ["-l", "racket-langserver"] }
-grammar = "scheme"
-
-[[language]]
-name = "common-lisp"
-scope = "source.lisp"
-roots = []
-file-types = ["lisp", "asd", "cl", "l", "lsp", "ny", "podsl", "sexp"]
-shebangs = ["lisp", "sbcl", "ccl", "clisp", "ecl"]
-comment-token = ";"
-indent = { tab-width = 2, unit = "  " }
-language-server = { command = "cl-lsp", args = [ "stdio" ] }
-grammar = "scheme"
-
-[language.auto-pairs]
-'(' = ')'
-'{' = '}'
-'[' = ']'
-'"' = '"'
 
 [[language]]
 name = "comment"
@@ -954,81 +805,20 @@ injection-regex = "comment"
 name = "comment"
 source = { git = "https://github.com/stsewd/tree-sitter-comment", rev = "5dd3c62f1bbe378b220fe16b317b85247898639e" }
 
-[[language]]
-name = "wgsl"
-scope = "source.wgsl"
-file-types = ["wgsl"]
-roots = []
-comment-token = "//"
-language-server = { command = "wgsl_analyzer" }
-indent = { tab-width = 4, unit = "    " }
 
-[[grammar]]
-name = "wgsl"
-source = { git = "https://github.com/szebniok/tree-sitter-wgsl", rev = "272e89ef2aeac74178edb9db4a83c1ffef80a463" }
-
-[[language]]
-name = "llvm"
-scope = "source.llvm"
-roots = []
-file-types = ["ll"]
-comment-token = ";"
-indent = { tab-width = 2, unit = "  " }
-injection-regex = "llvm"
-
-[[grammar]]
-name = "llvm"
-source = { git = "https://github.com/benwilliamgraham/tree-sitter-llvm", rev = "3b213925b9c4f42c1acfe2e10bfbb438d9c6834d" }
-
-[[language]]
-name = "llvm-mir"
-scope = "source.llvm_mir"
-roots = []
-file-types = []
-comment-token = ";"
-indent = { tab-width = 2, unit = "  " }
-injection-regex = "mir"
-
-[[grammar]]
-name = "llvm-mir"
-source = { git = "https://github.com/Flakebi/tree-sitter-llvm-mir", rev = "06fabca19454b2dc00c1b211a7cb7ad0bc2585f1" }
-
-[[language]]
-name = "llvm-mir-yaml"
-# TODO allow languages to point to their grammar like so:
-#
-#     grammar = "yaml"
-scope = "source.yaml"
-roots = []
-file-types = ["mir"]
-comment-token = "#"
-indent = { tab-width = 2, unit = "  " }
-
-[[language]]
-name = "tablegen"
-scope = "source.tablegen"
-roots = []
-file-types = ["td"]
-comment-token = "//"
-indent = { tab-width = 2, unit = "  " }
-injection-regex = "tablegen"
-
-[[grammar]]
-name = "tablegen"
-source = { git = "https://github.com/Flakebi/tree-sitter-tablegen", rev = "568dd8a937347175fd58db83d4c4cdaeb6069bd2" }
 
 [[language]]
 name = "markdown"
 scope = "source.md"
 injection-regex = "md|markdown"
-file-types = ["md", "markdown"]
-roots = [".marksman.toml"]
-language-server = { command = "marksman", args=["server"] }
+file-types = ["md", "markdown", "PULLREQ_EDITMSG", "mkd", "mdwn", "mdown", "markdn", "mdtxt", "mdtext", "workbook"]
+# roots = [".marksman.toml"]
+language-servers = [ "marksman" ]
 indent = { tab-width = 2, unit = "  " }
 
 [[grammar]]
 name = "markdown"
-source = { git = "https://github.com/MDeiml/tree-sitter-markdown", rev = "a7de4be29783a6e25f3240c90afea52f2417faa3", subpath = "tree-sitter-markdown" }
+source = { git = "https://github.com/MDeiml/tree-sitter-markdown", rev = "aaf76797aa8ecd9a5e78e0ec3681941de6c945ee", subpath = "tree-sitter-markdown" }
 
 [[language]]
 name = "markdown.inline"
@@ -1040,7 +830,7 @@ grammar = "markdown_inline"
 
 [[grammar]]
 name = "markdown_inline"
-source = { git = "https://github.com/MDeiml/tree-sitter-markdown", rev = "a7de4be29783a6e25f3240c90afea52f2417faa3", subpath = "tree-sitter-markdown-inline" }
+source = { git = "https://github.com/MDeiml/tree-sitter-markdown", rev = "aaf76797aa8ecd9a5e78e0ec3681941de6c945ee", subpath = "tree-sitter-markdown-inline" }
 
 [[language]]
 name = "dart"
@@ -1049,40 +839,26 @@ file-types = ["dart"]
 roots = ["pubspec.yaml"]
 auto-format = true
 comment-token = "//"
-language-server = { command = "dart", args = ["language-server", "--client-id=helix"] }
+language-servers = [ "dart" ]
 indent = { tab-width = 2, unit = "  " }
 
 [[grammar]]
 name = "dart"
-source = { git = "https://github.com/UserNobody14/tree-sitter-dart", rev = "2d7f66651c9319c1a0e4dda226cc2628fbb66528" }
-
-[[language]]
-name = "scala"
-scope = "source.scala"
-roots = ["build.sbt", "build.sc", "build.gradle", "pom.xml", ".scala-build"]
-file-types = ["scala", "sbt", "sc"]
-comment-token = "//"
-indent = { tab-width = 2, unit = "  " }
-language-server = { command = "metals" }
-config = { "isHttpEnabled" = true }
-
-[[grammar]]
-name = "scala"
-source = { git = "https://github.com/tree-sitter/tree-sitter-scala", rev = "db1c8c23d7996476a791db85a0d292084c19c232" }
+source = { git = "https://github.com/UserNobody14/tree-sitter-dart", rev = "e398400a0b785af3cf571f5a57eccab242f0cdf9" }
 
 [[language]]
 name = "dockerfile"
 scope = "source.dockerfile"
 injection-regex = "docker|dockerfile"
-roots = ["Dockerfile"]
-file-types = ["Dockerfile", "dockerfile"]
+roots = ["Dockerfile", "Containerfile"]
+file-types = ["Dockerfile", "dockerfile", "Containerfile", "containerfile"]
 comment-token = "#"
 indent = { tab-width = 2, unit = "  " }
-language-server = { command = "docker-langserver", args = ["--stdio"] }
+language-servers = [ "docker-langserver" ]
 
 [[grammar]]
 name = "dockerfile"
-source = { git = "https://github.com/camdencheek/tree-sitter-dockerfile", rev = "7af32bc04a66ab196f5b9f92ac471f29372ae2ce" }
+source = { git = "https://github.com/camdencheek/tree-sitter-dockerfile", rev = "8ee3a0f7587b2bd8c45c8cb7d28bd414604aec62" }
 
 [[language]]
 name = "git-commit"
@@ -1091,17 +867,18 @@ roots = []
 file-types = ["COMMIT_EDITMSG"]
 comment-token = "#"
 indent = { tab-width = 2, unit = "  " }
-rulers = [50, 72]
+rulers = [51, 73]
+text-width = 72
 
 [[grammar]]
 name = "git-commit"
-source = { git = "https://github.com/the-mikedavis/tree-sitter-git-commit", rev = "318dd72abfaa7b8044c1d1fbeabcd06deaaf038f" }
+source = { git = "https://github.com/the-mikedavis/tree-sitter-git-commit", rev = "6f193a66e9aa872760823dff020960c6cedc37b3" }
 
 [[language]]
 name = "diff"
 scope = "source.diff"
 roots = []
-file-types = ["diff", "patch"]
+file-types = ["diff", "patch", "rej"]
 injection-regex = "diff"
 comment-token = "#"
 indent = { tab-width = 2, unit = "  " }
@@ -1117,28 +894,17 @@ roots = []
 file-types = ["git-rebase-todo"]
 injection-regex = "git-rebase"
 comment-token = "#"
-indent = { tab-width = 2, unit = " " }
+indent = { tab-width = 2, unit = "y" }
 
 [[grammar]]
 name = "git-rebase"
-source = { git = "https://github.com/the-mikedavis/tree-sitter-git-rebase", rev = "332dc528f27044bc4427024dbb33e6941fc131f2" }
-
-[[language]]
-name = "regex"
-scope = "source.regex"
-injection-regex = "regex"
-file-types = ["regex"]
-roots = []
-
-[[grammar]]
-name = "regex"
-source = { git = "https://github.com/tree-sitter/tree-sitter-regex", rev = "e1cfca3c79896ff79842f057ea13e529b66af636" }
+source = { git = "https://github.com/the-mikedavis/tree-sitter-git-rebase", rev = "d8a4207ebbc47bd78bacdf48f883db58283f9fd8" }
 
 [[language]]
 name = "git-config"
 scope = "source.gitconfig"
 roots = []
-file-types = [".gitmodules", ".gitconfig", { suffix = ".git/config" }, { suffix = ".config/git/config" }]
+file-types = [".gitmodules", ".gitconfig", { glob = ".git/config" }, { glob = ".config/git/config" }]
 injection-regex = "git-config"
 comment-token = "#"
 indent = { tab-width = 4, unit = "\t" }
@@ -1164,7 +930,7 @@ source = { git = "https://github.com/mtoohey31/tree-sitter-gitattributes", rev =
 name = "git-ignore"
 scope = "source.gitignore"
 roots = []
-file-types = [".gitignore", ".gitignore_global"]
+file-types = [".gitignore", ".gitignore_global", ".ignore", ".prettierignore", ".eslintignore", ".npmignore", "CODEOWNERS"]
 injection-regex = "git-ignore"
 comment-token = "#"
 grammar = "gitignore"
@@ -1177,76 +943,14 @@ source = { git = "https://github.com/shunsambongi/tree-sitter-gitignore", rev = 
 name = "graphql"
 scope = "source.graphql"
 injection-regex = "graphql"
-file-types = ["gql", "graphql"]
+file-types = ["gql", "graphql", "graphqls"]
 roots = []
+language-servers = [ "graphql-language-service" ]
 indent = { tab-width = 2, unit = "  " }
 
 [[grammar]]
 name = "graphql"
 source = { git = "https://github.com/bkegley/tree-sitter-graphql", rev = "5e66e961eee421786bdda8495ed1db045e06b5fe" }
-
-[[language]]
-name = "elm"
-scope = "source.elm"
-injection-regex = "elm"
-file-types = ["elm"]
-roots = ["elm.json"]
-auto-format = true
-comment-token = "--"
-language-server = { command = "elm-language-server" }
-indent = { tab-width = 4, unit = "    " }
-
-[[grammar]]
-name = "elm"
-source = { git = "https://github.com/elm-tooling/tree-sitter-elm", rev = "df4cb639c01b76bc9ac9cc66788709a6da20002c" }
-
-[[language]]
-name = "iex"
-scope = "source.iex"
-injection-regex = "iex"
-file-types = ["iex"]
-roots = []
-
-[[grammar]]
-name = "iex"
-source = { git = "https://github.com/elixir-lang/tree-sitter-iex", rev = "39f20bb51f502e32058684e893c0c0b00bb2332c" }
-
-[[language]]
-name = "rescript"
-scope = "source.rescript"
-injection-regex = "rescript"
-file-types = ["res"]
-roots = ["bsconfig.json"]
-auto-format = true
-comment-token = "//"
-language-server = { command = "rescript-language-server", args = ["--stdio"] }
-indent = { tab-width = 2, unit = "  " }
-
-[[grammar]]
-name = "rescript"
-source = { git = "https://github.com/jaredramirez/tree-sitter-rescript", rev = "65609807c628477f3b94052e7ef895885ac51c3c" }
-
-[[language]]
-name = "erlang"
-scope = "source.erlang"
-injection-regex = "erl(ang)?"
-file-types = ["erl", "hrl", "app", "rebar.config", "rebar.lock"]
-roots = ["rebar.config"]
-comment-token = "%%"
-indent = { tab-width = 4, unit = "    " }
-language-server = { command = "erlang_ls" }
-
-[language.auto-pairs]
-'(' = ')'
-'{' = '}'
-'[' = ']'
-'"' = '"'
-"'" = "'"
-'`' = "'"
-
-[[grammar]]
-name = "erlang"
-source = { git = "https://github.com/the-mikedavis/tree-sitter-erlang", rev = "ce0ed253d72c199ab93caba7542b6f62075339c4" }
 
 [[language]]
 name = "kotlin"
@@ -1255,63 +959,11 @@ file-types = ["kt", "kts"]
 roots = ["settings.gradle", "settings.gradle.kts"]
 comment-token = "//"
 indent = { tab-width = 4, unit = "    " }
-language-server = { command = "kotlin-language-server" }
+language-servers = [ "kotlin-language-server" ]
 
 [[grammar]]
 name = "kotlin"
 source = { git = "https://github.com/fwcd/tree-sitter-kotlin", rev = "a4f71eb9b8c9b19ded3e0e9470be4b1b77c2b569" }
-
-[[language]]
-name = "hcl"
-scope = "source.hcl"
-injection-regex = "(hcl|tf|nomad)"
-file-types = ["hcl", "tf", "nomad"]
-roots = []
-comment-token = "#"
-indent = { tab-width = 2, unit = "  " }
-language-server = { command = "terraform-ls", args = ["serve"], language-id = "terraform" }
-auto-format = true
-
-[[grammar]]
-name = "hcl"
-source = { git = "https://github.com/MichaHoffmann/tree-sitter-hcl", rev = "3cb7fc28247efbcb2973b97e71c78838ad98a583" }
-
-[[language]]
-name = "tfvars"
-scope = "source.tfvars"
-file-types = ["tfvars"]
-roots = []
-comment-token = "#"
-indent = { tab-width = 2, unit = "  " }
-language-server = { command = "terraform-ls", args = ["serve"], language-id = "terraform-vars" }
-auto-format = true
-grammar = "hcl"
-
-[[language]]
-name = "org"
-scope = "source.org"
-injection-regex = "org"
-file-types = ["org"]
-roots = []
-indent = { tab-width = 2, unit = "  " }
-
-[[grammar]]
-name = "org"
-source = { git = "https://github.com/milisims/tree-sitter-org", rev = "698bb1a34331e68f83fc24bdd1b6f97016bb30de" }
-
-[[language]]
-name = "solidity"
-scope = "source.sol"
-injection-regex = "(sol|solidity)"
-file-types = ["sol"]
-roots = []
-comment-token = "//"
-indent = { tab-width = 4, unit = "    " }
-language-server = { command = "solc", args = ["--lsp"] }
-
-[[grammar]]
-name = "solidity"
-source = { git = "https://github.com/JoranHonig/tree-sitter-solidity", rev = "9004b86531cb424bd379424cf7266a4585f2af7d" }
 
 [[language]]
 name = "gleam"
@@ -1321,36 +973,12 @@ file-types = ["gleam"]
 roots = ["gleam.toml"]
 comment-token = "//"
 indent = { tab-width = 2, unit = "  " }
-language-server = { command = "gleam", args = ["lsp"] }
+language-servers = [ "gleam" ]
+auto-format = true
 
 [[grammar]]
 name = "gleam"
-source = { git = "https://github.com/gleam-lang/tree-sitter-gleam", rev = "d6cbdf3477fcdb0b4d811518a356f9b5cd1795ed" }
-
-[[language]]
-name = "ron"
-scope = "source.ron"
-injection-regex = "ron"
-file-types = ["ron"]
-roots = []
-comment-token = "//"
-indent = { tab-width = 4, unit = "    " }
-grammar = "rust"
-
-[[language]]
-name = "r"
-scope = "source.r"
-injection-regex = "(r|R)"
-file-types = ["r", "R"]
-shebangs = ["r", "R"]
-roots = []
-comment-token = "#"
-indent = { tab-width = 2, unit = "  " }
-language-server = { command = "R", args = ["--slave", "-e", "languageserver::run()"] }
-
-[[grammar]]
-name = "r"
-source = { git = "https://github.com/r-lib/tree-sitter-r", rev = "cc04302e1bff76fa02e129f332f44636813b0c3c" }
+source = { git = "https://github.com/gleam-lang/tree-sitter-gleam", rev = "a59aadf3d7c11702cad244e7cd6b67b34ca9c16a" }
 
 [[language]]
 name = "rmarkdown"
@@ -1360,30 +988,7 @@ file-types = ["rmd", "Rmd"]
 roots = []
 indent = { tab-width = 2, unit = "  " }
 grammar = "markdown"
-language-server = { command = "R", args = ["--slave", "-e", "languageserver::run()"] }
-
-[[language]]
-name = "swift"
-scope = "source.swift"
-injection-regex = "swift"
-file-types = ["swift"]
-roots = [ "Package.swift" ]
-comment-token = "//"
-auto-format = true
-language-server = { command = "sourcekit-lsp" }
-
-[[grammar]]
-name = "swift"
-source = { git = "https://github.com/alex-pinkus/tree-sitter-swift", rev = "77c6312c8438f4dbaa0350cec92b3d6dd3d74a66" }
-
-[[language]]
-name = "erb"
-scope = "text.html.erb"
-injection-regex = "erb"
-file-types = ["erb"]
-roots = []
-indent = { tab-width = 2, unit = "  " }
-grammar = "embedded-template"
+language-servers = [ "r" ]
 
 [[language]]
 name = "ejs"
@@ -1399,126 +1004,18 @@ name = "embedded-template"
 source = { git = "https://github.com/tree-sitter/tree-sitter-embedded-template", rev = "d21df11b0ecc6fd211dbe11278e92ef67bd17e97" }
 
 [[language]]
-name = "eex"
-scope = "source.eex"
-injection-regex = "eex"
-file-types = ["eex"]
-roots = ["mix.exs", "mix.lock"]
-indent = { tab-width = 2, unit = "  " }
-
-[[grammar]]
-name = "eex"
-source = { git = "https://github.com/connorlay/tree-sitter-eex", rev = "f742f2fe327463335e8671a87c0b9b396905d1d1" }
-
-[[language]]
-name = "heex"
-scope = "source.heex"
-injection-regex = "heex"
-file-types = ["heex"]
-roots = ["mix.exs", "mix.lock"]
-indent = { tab-width = 2, unit = "  " }
-language-server = { command = "elixir-ls" }
-config = { elixirLS.dialyzerEnabled = false }
-
-[[grammar]]
-name = "heex"
-source = { git = "https://github.com/phoenixframework/tree-sitter-heex", rev = "2e1348c3cf2c9323e87c2744796cf3f3868aa82a" }
-
-[[language]]
 name = "sql"
 scope = "source.sql"
-file-types = ["sql"]
+file-types = ["sql", "dsql"]
 roots = []
 comment-token = "--"
+language-servers=["sqlls"]
 indent = { tab-width = 4, unit = "    " }
 injection-regex = "sql"
 
 [[grammar]]
 name = "sql"
-source = { git = "https://github.com/DerekStride/tree-sitter-sql", rev = "2743c7b5e710e6854d4e8c14c302548b436e2a1f" }
-
-[[language]]
-name = "gdscript"
-scope = "source.gdscript"
-injection-regex = "gdscript"
-file-types = ["gd"]
-shebangs = []
-roots = ["project.godot"]
-auto-format = true
-comment-token = "#"
-indent = { tab-width = 4, unit = "\t" }
-
-[[grammar]]
-name = "gdscript"
-source = { git = "https://github.com/PrestonKnopp/tree-sitter-gdscript", rev = "2a6abdaa47fcb91397e09a97c7433fd995ea46c6" }
-
-[[language]]
-name = "godot-resource"
-scope = "source.tscn"
-injection-regex = "godot"
-file-types = ["tscn","tres"]
-shebangs = []
-roots = ["project.godot"]
-auto-format = false
-comment-token = ";"
-indent = { tab-width = 4, unit = "\t" }
-
-[[grammar]]
-name = "godot-resource"
-source = { git = "https://github.com/PrestonKnopp/tree-sitter-godot-resource", rev = "b6ef0768711086a86b3297056f9ffb5cc1d77b4a" }
-
-[[language]]
-name = "nu"
-scope = "source.nu"
-injection-regex = "nu"
-file-types = ["nu"]
-roots = []
-comment-token = "#"
-indent = { tab-width = 2, unit = "  " }
-
-[[grammar]]
-name = "nu"
-source = { git = "https://github.com/LhKipp/tree-sitter-nu", rev = "eb95bdac3abd73ef47e53f19c63e74a31405ebd2" }
-
-[[language]]
-name = "vala"
-scope = "source.vala"
-injection-regex = "vala"
-file-types = ["vala", "vapi"]
-roots = []
-comment-token = "//"
-indent = { tab-width = 2, unit = "  " }
-language-server = { command = "vala-language-server" }
-
-[[grammar]]
-name = "vala"
-source = { git = "https://github.com/vala-lang/tree-sitter-vala", rev = "c9eea93ba2ec4ec1485392db11945819779745b3" }
-
-[[language]]
-name = "hare"
-scope = "source.hare"
-injection-regex = "hare"
-file-types = ["ha"]
-roots = []
-comment-token = "//"
-indent = { tab-width = 8, unit = "\t" }
-
-[[grammar]]
-name = "hare"
-source = { git = "https://git.sr.ht/~ecmma/tree-sitter-hare", rev = "bc26a6a949f2e0d98b7bfc437d459b250900a165" }
-
-[[language]]
-name = "devicetree"
-scope = "source.devicetree"
-injection-regex = "(dtsi?|devicetree|fdt)"
-file-types = ["dts", "dtsi"]
-roots = []
-comment-token = "//"
-indent = { tab-width = 4, unit = "\t" }
-
-[[grammar]]
-name = "devicetree"
-source = { git = "https://github.com/joelspadin/tree-sitter-devicetree", rev = "877adbfa0174d25894c40fa75ad52d4515a36368" }
+source = { git = "https://github.com/DerekStride/tree-sitter-sql", rev = "eeab7240a11098724e6f95bc57cc3ceaf5487d5f" }
 
 [[language]]
 name = "cairo"
@@ -1528,39 +1025,9 @@ file-types = ["cairo"]
 roots = []
 comment-token = "//"
 indent = { tab-width = 4, unit = "    " }
-
-[[grammar]]
-name = "cairo"
-source = { git = "https://github.com/archseer/tree-sitter-cairo", rev = "b249662a1eefeb4d71c9529cdd971e74fecc10fe" }
-
-[[language]]
-name = "cpon"
-scope = "scope.cpon"
-injection-regex = "cpon"
-file-types = ["cpon", "cp"]
-roots = []
-auto-format = true
-comment-token = "//"
-indent = { tab-width = 2, unit = "  " }
-
-[[grammar]]
-name = "cpon"
-source = { git = "https://github.com/fvacek/tree-sitter-cpon", rev = "0d01fcdae5a53191df5b1349f9bce053833270e7" }
-
-[[language]]
-name = "odin"
-auto-format = false
-scope = "source.odin"
-file-types = ["odin"]
-roots = ["ols.json"]
-language-server = { command = "ols", args = [] }
-comment-token = "//"
-indent = { tab-width = 4, unit = "\t" }
-
-[[grammar]]
-name = "odin"
-source = { git = "https://github.com/MineBill/tree-sitter-odin", rev = "da885f4a387f169b9b69fe0968259ee257a8f69a" }
-
+# auto-format = true
+grammar = "rust"
+language-servers = [ "cairo-language-server" ]
 [[language]]
 name = "meson"
 scope = "source.meson"
@@ -1577,67 +1044,13 @@ source = { git = "https://github.com/staysail/tree-sitter-meson", rev = "32a83e8
 [[language]]
 name = "sshclientconfig"
 scope = "source.sshclientconfig"
-file-types = [{ suffix = ".ssh/config" }, { suffix = "/etc/ssh/ssh_config" }]
+file-types = [{ glob = ".ssh/config" }, { glob = "/etc/ssh/ssh_config" }]
 roots = []
 comment-token = "#"
 
 [[grammar]]
 name = "sshclientconfig"
 source = { git = "https://github.com/metio/tree-sitter-ssh-client-config", rev = "e45c6d5c71657344d4ecaf87dafae7736f776c57" }
-
-[[language]]
-name = "scheme"
-scope = "source.scheme"
-injection-regex = "scheme"
-file-types = ["ss"] # "scm",
-roots = []
-comment-token = ";"
-indent = { tab-width = 2, unit = "  " }
-
-[[grammar]]
-name = "scheme"
-source = { git = "https://github.com/6cdh/tree-sitter-scheme", rev = "c0741320bfca6b7b5b7a13b5171275951e96a842" }
-
-[[language]]
-name = "v"
-scope = "source.v"
-file-types = ["v", "vv"]
-shebangs = ["v run"]
-roots = ["v.mod"]
-language-server = { command = "vls", args = [] }
-auto-format = true
-comment-token = "//"
-indent = { tab-width = 4, unit = "\t" }
-
-[[grammar]]
-name = "v"
-source = { git = "https://github.com/vlang/vls", subpath = "tree_sitter_v", rev = "3e8124ea4ab80aa08ec77f03df53f577902a0cdd" }
-
-[[language]]
-name = "verilog"
-scope = "source.verilog"
-file-types = ["v", "vh", "sv", "svh"]
-roots = []
-comment-token = "//"
-language-server = { command = "svlangserver", args = [] }
-indent = { tab-width = 2, unit = "  " }
-injection-regex = "verilog"
-
-[[grammar]]
-name = "verilog"
-source = { git = "https://github.com/andreytkachenko/tree-sitter-verilog", rev = "514d8d70593d29ef3ef667fa6b0e504ae7c977e3" }
-
-[[language]]
-name = "edoc"
-scope = "source.edoc"
-file-types = ["edoc", "edoc.in"]
-injection-regex = "edoc"
-roots = []
-indent = { tab-width = 4, unit = "    " }
-
-[[grammar]]
-name = "edoc"
-source = { git = "https://github.com/the-mikedavis/tree-sitter-edoc", rev = "74774af7b45dd9cefbf9510328fc6ff2374afc50" }
 
 [[language]]
 name = "jsdoc"
@@ -1652,151 +1065,18 @@ name = "jsdoc"
 source = { git = "https://github.com/tree-sitter/tree-sitter-jsdoc", rev = "189a6a4829beb9cdbe837260653b4a3dfb0cc3db" }
 
 [[language]]
-name = "openscad"
-scope = "source.openscad"
-injection-regex = "openscad"
-file-types = ["scad"]
-roots = []
-comment-token = "//"
-language-server = { command = "openscad-lsp", args = ["--stdio"] }
-indent = { tab-width = 2, unit = "\t" }
-
-[[grammar]]
-name = "openscad"
-source = { git = "https://github.com/bollian/tree-sitter-openscad", rev = "5c3ce93df0ac1da7197cf6ae125aade26d6b8972" }
-
-[[language]]
 name = "prisma"
 scope = "source.prisma"
 injection-regex = "prisma"
 file-types = ["prisma"]
 roots = ["package.json"]
 comment-token = "//"
-language-server = { command = "prisma-language-server", args = ["--stdio"] }
+language-servers = [ "prisma-language-server" ]
 indent = { tab-width = 2, unit = "  " }
 
 [[grammar]]
 name = "prisma"
 source = { git = "https://github.com/victorhqc/tree-sitter-prisma", rev = "eca2596a355b1a9952b4f80f8f9caed300a272b5" }
-
-[[language]]
-name = "clojure"
-scope = "source.clojure"
-injection-regex = "(clojure|clj|edn|boot)"
-file-types = ["clj", "cljs", "cljc", "clje", "cljr", "cljx", "edn", "boot"]
-roots = ["project.clj", "build.boot", "deps.edn", "shadow-cljs.edn"]
-comment-token = ";"
-language-server = { command = "clojure-lsp" }
-indent = { tab-width = 2, unit = "  " }
-
-[[grammar]]
-name = "clojure"
-source = { git = "https://github.com/sogaiu/tree-sitter-clojure", rev = "e57c569ae332ca365da623712ae1f50f84daeae2" }
-
-[[language]]
-name = "starlark"
-scope = "source.starlark"
-injection-regex = "(starlark|bzl|bazel)"
-file-types = ["bzl", "bazel", "BUILD"]
-roots = []
-comment-token = "#"
-indent = { tab-width = 4, unit = "    " }
-grammar = "python"
-
-[[language]]
-name = "elvish"
-scope = "source.elvish"
-file-types = ["elv"]
-roots = []
-comment-token = "#"
-indent = { tab-width = 2, unit = "  " }
-language-server = { command = "elvish", args = ["-lsp"] }
-grammar = "elvish"
-
-[[grammar]]
-name = "elvish"
-source = { git = "https://github.com/ckafi/tree-sitter-elvish", rev = "e50787cadd3bc54f6d9c0704493a79078bb8a4e5" }
-
-[[language]]
-name = "idris"
-scope = "source.idr"
-injection-regex = "idr"
-file-types = ["idr"]
-shebangs = []
-roots = []
-comment-token = "--"
-indent = { tab-width = 2, unit = "  " }
-language-server = { command = "idris2-lsp" }
-
-[[language]]
-name = "fortran"
-scope = "source.fortran"
-injection-regex = "fortran"
-file-types = ["f", "for", "f90", "f95", "f03"]
-roots = ["fpm.toml"]
-comment-token = "!"
-indent = { tab-width = 4, unit = "    "}
-language-server = { command = "fortls", args = ["--lowercase_intrinsics"] }
-
-[[grammar]]
-name = "fortran"
-source = { git = "https://github.com/stadelmanma/tree-sitter-fortran", rev = "f0f2f100952a353e64e26b0fa710b4c296d7af13" }
-
-[[language]]
-name = "ungrammar"
-scope = "source.ungrammar"
-injection-regex = "ungrammar"
-file-types = ["ungram", "ungrammar"]
-roots = []
-comment-token = "//"
-indent = { tab-width = 2, unit = "  " }
-
-[[grammar]]
-name = "ungrammar"
-source = { git = "https://github.com/Philipp-M/tree-sitter-ungrammar", rev = "0113de880a58ea14f2a75802e9b99fcc25003d9c" }
-
-[[language]]
-name = "dot"
-scope = "source.dot"
-injection-regex = "dot"
-file-types = ["dot"]
-roots = []
-comment-token = "//"
-indent = { tab-width = 4, unit = "    " }
-language-server = { command = "dot-language-server", args = ["--stdio"] }
-
-[[grammar]]
-name = "dot"
-source = { git = "https://github.com/rydesun/tree-sitter-dot", rev = "917230743aa10f45a408fea2ddb54bbbf5fbe7b7" }
-
-[[language]]
-name = "cue"
-scope = "source.cue"
-injection-regex = "cue"
-file-types = ["cue"]
-roots = ["cue.mod"]
-auto-format = true
-comment-token = "//"
-language-server = { command = "cuelsp" }
-indent = { tab-width = 4, unit = "\t" }
-
-[[grammar]]
-name = "cue"
-source = { git = "https://github.com/eonpatapon/tree-sitter-cue", rev = "61843e3beebf19417e4fede4e8be4df1084317ad" }
-
-[[language]]
-name = "slint"
-scope = "source.slint"
-injection-regex = "slint"
-file-types = ["slint"]
-roots = []
-comment-token = "//"
-indent = { tab-width = 4, unit = "    " }
-language-server = { command = "slint-lsp", args = [] }
-
-[[grammar]]
-name = "slint"
-source = { git = "https://github.com/jrmoulton/tree-sitter-slint", rev = "0d4dda94f96623302dfc234e06be62a5717f47da" }
 
 [[language]]
 name = "task"
@@ -1812,64 +1092,13 @@ name = "task"
 source = { git = "https://github.com/alexanderbrevig/tree-sitter-task", rev = "f2cb435c5dbf3ee19493e224485d977cb2d36d8b" }
 
 [[language]]
-name = "xit"
-scope = "source.xit"
-injection-regex = "xit"
-file-types = ["xit"]
-roots = []
-indent = { tab-width = 4, unit = "    " }
-
-[[grammar]]
-name = "xit"
-source = { git = "https://github.com/synaptiko/tree-sitter-xit", rev = "7d7902456061bc2ad21c64c44054f67b5515734c" }
-
-[[language]]
-name = "esdl"
-scope = "source.esdl"
-injection-regex = "esdl"
-file-types = ["esdl"]
-comment-token = "#"
-indent = { tab-width = 2, unit = "  " }
-roots = ["edgedb.toml"]
-
-[[grammar]]
-name ="esdl"
-source = { git = "https://github.com/greym0uth/tree-sitter-esdl", rev = "b840c8a8028127e0a7c6e6c45141adade2bd75cf" }
-
-[[language]]
-name = "pascal"
-scope = "source.pascal"
-injection-regex = "pascal"
-file-types = ["pas", "pp", "inc", "lpr", "lfm"]
-roots = []
-comment-token = "//"
-indent = { tab-width = 2, unit = "  " }
-language-server = { command = "pasls", args = [] }
-
-[[grammar]]
-name = "pascal"
-source = { git = "https://github.com/Isopod/tree-sitter-pascal", rev = "2fd40f477d3e2794af152618ccfac8d92eb72a66" }
-
-[[language]]
-name = "sml"
-scope = "source.sml"
-injection-regex = "sml"
-file-types = ["sml"]
-comment-token = "(*"
-roots = []
-
-[[grammar]]
-name = "sml"
-source = { git = "https://github.com/Giorbo/tree-sitter-sml", rev = "bd4055d5554614520d4a0706b34dc0c317c6b608" }
-
-[[language]]
 name = "jsonnet"
 scope = "source.jsonnet"
 file-types = ["libsonnet", "jsonnet"]
 roots = ["jsonnetfile.json"]
 comment-token = "//"
 indent = { tab-width = 2, unit = "  " }
-language-server = { command = "jsonnet-language-server", args= ["-t", "--lint"] }
+language-servers = [ "jsonnet-language-server" ]
 
 [[grammar]]
 name = "jsonnet"
@@ -1882,92 +1111,71 @@ injection-regex = "astro"
 file-types = ["astro"]
 roots = []
 indent = { tab-width = 2, unit = "  " }
-
+language-servers =["astro-ls","eslint","emmet","tailwindcss-ls"]
 [[grammar]]
 name = "astro"
 source = { git = "https://github.com/virchau13/tree-sitter-astro", rev = "5f5c3e73c45967df9aa42f861fad2d77cd4e0900" }
 
 [[language]]
-name = "bass"
-scope = "source.bass"
-injection-regex = "bass"
-file-types = ["bass"]
-roots = []
-comment-token = ";"
-indent = { tab-width = 2, unit = "  " }
-language-server = { command = "bass", args = ["--lsp"] }
-
-[[grammar]]
-name = "bass"
-source = { git = "https://github.com/vito/tree-sitter-bass", rev = "501133e260d768ed4e1fd7374912ed5c86d6fd90" }
-
-[[language]]
-name = "wat"
-scope = "source.wat"
-comment-token = ";;"
-file-types = ["wat"]
-roots = []
-
-[[grammar]]
-name = "wat"
-source = { git = "https://github.com/wasm-lsp/tree-sitter-wasm", rev = "2ca28a9f9d709847bf7a3de0942a84e912f59088", subpath = "wat" }
-
-[[language]]
-name = "wast"
-scope = "source.wast"
-comment-token = ";;"
-file-types = ["wast"]
-roots = []
-
-[[grammar]]
-name = "wast"
-source = { git = "https://github.com/wasm-lsp/tree-sitter-wasm", rev = "2ca28a9f9d709847bf7a3de0942a84e912f59088", subpath = "wast" }
-
-[[language]]
-name = "d"
-scope = "source.d"
-file-types = [ "d", "dd" ]
-roots = []
-comment-token = "//"
-injection-regex = "d"
-indent = { tab-width = 4, unit = "    "}
-language-server = { command = "serve-d" }
-formatter = { command = "dfmt" }
-
-[[grammar]]
-name = "d"
-source = { git = "https://github.com/gdamore/tree-sitter-d", rev="601c4a1e8310fb2f3c43fa8a923d0d27497f3c04" }
-
-[[language]]
-name = "vhs"
-scope = "source.vhs"
-file-types = ["tape"]
-roots = []
-comment-token = "#"
-indent = { tab-width = 2, unit = "  " }
-grammar = "vhs"
-
-[[grammar]]
-name = "vhs"
-source = { git = "https://github.com/charmbracelet/tree-sitter-vhs", rev = "c6d81f34c011c29ee86dd73b45a8ecc9f2e2bdaf" }
-
-[[language]]
-name = "kdl"
-scope = "source.kdl"
-file-types = ["kdl"]
-roots = []
-comment-token = "//"
-injection-regex = "kdl"
-
-[[grammar]]
-name = "kdl"
-source = { git = "https://github.com/Unoqwy/tree-sitter-kdl", rev = "e1cd292c6d15df6610484e1d4b5c987ecad52373" }
-
-[[language]]
 name = "xml"
 scope = "source.xml"
 injection-regex = "xml"
-file-types = ["xml"]
+file-types = [
+  "xml",
+  "mobileconfig",
+  "plist",
+  "xib",
+  "storyboard",
+  "svg",
+  "xsd",
+  "gml",
+  "xaml",
+  "gir",
+  "rss",
+  "atom",
+  "opml",
+  "policy",
+  "ascx",
+  "axml",
+  "axaml",
+  "bpmn",
+  "cpt",
+  "csl",
+  "csproj.user",
+  "dita",
+  "ditamap",
+  "dtml",
+  "fxml",
+  "iml",
+  "isml",
+  "jmx",
+  "launch",
+  "menu",
+  "mxml",
+  "nuspec",
+  "pt",
+  "publishsettings",
+  "pubxml",
+  "pubxml.user",
+  "rbxlx",
+  "rbxmx",
+  "rng",
+  "shproj",
+  "tld",
+  "tmx",
+  "vbproj.user",
+  "vcxproj",
+  "vcxproj.filters",
+  "wsdl",
+  "wxi",
+  "wxs",
+  "xbl",
+  "xlf",
+  "xliff",
+  "xpdl",
+  "xul",
+  "xoml"
+]
 indent = { tab-width = 2, unit = "  " }
 roots = []
 
@@ -1981,46 +1189,45 @@ roots = []
 
 [[grammar]]
 name = "xml"
-source = { git = "https://github.com/RenjiSann/tree-sitter-xml", rev = "422528a43630db6dcc1e222d1c5ee3babd559473" }
-
-[[language]]
-name = "wit"
-scope = "source.wit"
-injection-regex = "wit"
-file-types = ["wit"]
-roots = []
-comment-token = "//"
-indent = { tab-width = 2, unit = "  " }
-
-[language.auto-pairs]
-'(' = ')'
-'{' = '}'
-'[' = ']'
-'"' = '"'
-"'" = "'"
-"<" = ">"
-
-[[grammar]]
-name = "wit"
-source = { git = "https://github.com/hh9527/tree-sitter-wit", rev = "c917790ab9aec50c5fd664cbfad8dd45110cfff3" }
+source = { git = "https://github.com/RenjiSann/tree-sitter-xml", rev = "48a7c2b6fb9d515577e115e6788937e837815651" }
 
 [[language]]
 name = "env"
 scope = "source.env"
-file-types = [".env", ".env.local", ".env.development", ".env.production"]
+file-types = [".env", ".env.local", ".env.development", ".env.production", ".env.dist", ".envrc"]
 injection-regex = "env"
 comment-token = "#"
 indent = { tab-width = 4, unit = "\t" }
 roots = []
-
-[[grammar]]
-name = "env"
-source = { git = "https://github.com/seshotake/tree-sitter-env", rev = "e6c6bb1e7b51d481cba463fe949f083cf22d81f7" }
+grammar = "bash"
 
 [[language]]
 name = "ini"
 scope = "source.ini"
-file-types = ["ini"]
+file-types = [
+  "ini",
+  # Systemd unit files
+  "service",
+  "automount",
+  "device",
+  "mount",
+  "path",
+  "service",
+  "slice",
+  "socket",
+  "swap",
+  "target",
+  "timer",
+  # Podman quadlets
+  "container",
+  "volume",
+  "kube",
+  "network",
+  ".editorconfig",
+  "properties",
+  "cfg",
+  "directory"
+]
 injection-regex = "ini"
 comment-token = "#"
 indent = { tab-width = 4, unit = "\t" }
@@ -2031,25 +1238,11 @@ name = "ini"
 source = { git = "https://github.com/justinmk/tree-sitter-ini", rev = "4d247fb876b4ae6b347687de4a179511bf67fcbc" }
 
 [[language]]
-name = "bicep"
-scope = "source.bicep"
-file-types = ["bicep"]
-roots = []
-auto-format = true
-comment-token = "//"
-indent = { tab-width = 2, unit = " "}
-language-server = { command = "bicep-langserver" }
-
-[[grammar]]
-name = "bicep"
-source = { git = "https://github.com/the-mikedavis/tree-sitter-bicep", rev = "d8e097fcfa143854861ef737161163a09cc2916b" }
-
-[[language]]
 name = "qml"
 scope = "source.qml"
 file-types = ["qml"]
 roots = []
-language-server = { command = "qmlls" }
+language-servers = [ "qmlls" ]
 indent = { tab-width = 4, unit = "    " }
 grammar = "qmljs"
 
@@ -2058,55 +1251,72 @@ name = "qmljs"
 source = { git = "https://github.com/yuja/tree-sitter-qmljs", rev = "0b2b25bcaa7d4925d5f0dda16f6a99c588a437f1" }
 
 [[language]]
-name = "mermaid"
-scope = "source.mermaid"
-injection-regex = "mermaid"
-file-types = ["mermaid"]
+name = "hosts"
+scope = "source.hosts"
+file-types = ["hosts"]
 roots = []
-comment-token = "%%"
-indent = { tab-width = 4, unit = "    " }
+comment-token = "#"
 
 [[grammar]]
-name = "mermaid"
-source = { git = "https://github.com/monaqa/tree-sitter-mermaid", rev = "d787c66276e7e95899230539f556e8b83ee16f6d" }
+name = "hosts"
+source = { git = "https://github.com/ath3/tree-sitter-hosts", rev = "301b9379ce7dfc8bdbe2c2699a6887dcb73953f9" }
 
 [[language]]
-name = "matlab"
-scope = "source.m"
-file-types = ["m"]
-comment-token = "%"
-shebangs = ["octave-cli", "matlab"]
+name = "nasm"
+scope = "source.nasm"
+file-types = ["asm", "S", "nasm"]
+injection-regex = "n?asm"
 roots = []
-indent = { tab-width = 2, unit = "  " }
+comment-token = ";"
+indent = { tab-width = 8, unit = "        " }
 
 [[grammar]]
-name = "matlab"
-source = { git = "https://github.com/mstanciu552/tree-sitter-matlab", rev = "2d5d3d5193718a86477d4335aba5b34e79147326" }
+name = "nasm"
+source = { git = "https://github.com/naclsn/tree-sitter-nasm", rev = "a0db15db6fcfb1bf2cc8702500e55e558825c48b" }
+
 
 [[language]]
-name = "ponylang"
-scope = "source.pony"
-file-types = ["pony"]
-injection-regex = "pony"
-roots = ["corral.json", "lock.json"]
-indent = { tab-width = 2, unit = "  " }
+name = "marksman"
+scope = "text.md"
+roots = []
+file-types = ["md"]
+language-servers = [ "marksman-ls" ]
+
+[[language]]
+name = "opencl"
+scope = "source.cl"
+injection-regex = "(cl|opencl)"
+file-types = ["cl"]
+roots = []
 comment-token = "//"
+language-servers = [ "clangd" ]
 
 [[grammar]]
-name = "ponylang"
-source = { git = "https://github.com/mfelsche/tree-sitter-ponylang", rev = "ef66b151bc2604f431b5668fcec4747db4290e11" }
+name = "opencl"
+source = { git = "https://github.com/lefp/tree-sitter-opencl", rev = "8e1d24a57066b3cd1bb9685bbc1ca9de5c1b78fb" }
+
 
 [[language]]
-name = "dhall"
-scope = "source.dhall"
-injection-regex = "dhall"
-file-types = ["dhall"]
+name = "jinja"
+scope = "text.html.jinja"
+injection-regex = "jinja"
+file-types = ["jinja", "jinja2", "j2"]
 roots = []
-comment-token = "--"
 indent = { tab-width = 2, unit = "  " }
-language-server = { command = "dhall-lsp-server" }
-formatter = { command = "dhall" , args = ["format"] }
+grammar = "jinja2"
 
 [[grammar]]
-name = "dhall"
-source = { git = "https://github.com/jbellerb/tree-sitter-dhall", rev = "affb6ee38d629c9296749767ab832d69bb0d9ea8" }
+name = "jinja2"
+source = { git = "https://github.com/varpeti/tree-sitter-jinja2", rev = "a533cd3c33aea6acb0f9bf9a56f35dcfe6a8eb53" }
+
+[[language]]
+name = "todotxt"
+scope = "text.todotxt"
+file-types = [{ glob = ".todo.txt" }, "todotxt"]
+roots = []
+formatter = { command = "sort" }
+auto-format = true
+
+[[grammar]]
+name = "todotxt"
+source = { git = "https://github.com/arnarg/tree-sitter-todotxt", rev = "0207f6a4ab6aeafc4b091914d31d8235049a2578" }
