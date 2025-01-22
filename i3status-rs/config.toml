@@ -1,0 +1,88 @@
+icons_format = "{icon}"
+
+[theme]
+theme = "ctp-frappe"
+[theme.overrides]
+idle_bg = "#123456"
+idle_fg = "#abcdef"
+
+[icons]
+icons = "material-nf"
+[icons.overrides]
+bat = ["|E|", "|_|", "|=|", "|F|"]
+bat_charging = "|^| "
+
+[[block]]
+block = "cpu"
+info_cpu = 20
+warning_cpu = 50
+critical_cpu = 90
+
+[[block]]
+block = "disk_space"
+path = "/"
+info_type = "available"
+alert_unit = "GB"
+interval = 20
+warning = 20.0
+alert = 10.0
+format = " $icon root: $available.eng(w:2) "
+
+[[block]]
+block = "memory"
+format = " $icon $mem_total_used_percents.eng(w:2) "
+format_alt = " $icon_swap $swap_used_percents.eng(w:2) "
+
+[[block]]
+block = "sound"
+[[block.click]]
+button = "left"
+cmd = "pavucontrol"
+[[block]]
+block = "backlight"
+device = "intel_backlight"
+[[block]]
+block = "battery"
+format = "$icon $percentage {$time |}"
+device = "DisplayDevice"
+driver = "upower"
+[[block]]
+block = "bluetooth"
+mac = "F4:8C:50:7A:61:82"
+disconnected_format = ""
+format = " $icon "
+[block.battery_state]
+"0..20" = "critical"
+"21..70" = "warning"
+"71..100" = "good"
+[[block]]
+block = "keyboard_layout"
+driver = "sway"
+format = " $layout "
+[block.mappings]
+"English (Workman)" = "EN"
+"French" = "FR"
+
+[[block]]
+block = "music"
+[[block.click]]
+button = "left"
+action = "play_pause"
+[[block.click]]
+button = "middle"
+widget = "."
+action = "toggle_format"
+# [[block]]
+# block = "packages"
+# package_manager = ["pacman", "aur"]
+# interval = 600
+# error_interval = 300
+# format = " $icon $total updates"
+# format_singular = " $icon $total update available "
+# format_up_to_date = " $icon system up to date "
+### aur_command should output available updates to stdout (ie behave as echo -ne "update\n")
+#aur_command = "yay -Qua"
+[[block]]
+block = "time"
+interval = 5
+format = " $timestamp.datetime(f:'%a %d/%m %R') "

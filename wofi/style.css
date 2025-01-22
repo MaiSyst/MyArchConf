@@ -1,0 +1,60 @@
+* {
+	font-family: "SF Pro";
+	font-size: 20px;
+}
+
+#window {
+	/*background-color: --wofi-color0;*/
+	background-color: #1E1E2E;
+	color: --wofi-color2;
+	border: 2px solid #96CDFB;
+	border-radius: 10px;
+}
+
+#outer-box {
+	padding: 20px;
+}
+
+#input {
+	background-color: --wofi-color1;
+	border: 1px solid #96CDFB;
+	padding: 8px 12px;
+}
+
+#scroll {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+#inner-box {}
+
+#img {
+	padding-right: 10px;
+}
+
+#text {
+	color: --wofi-color2;
+}
+
+#text:selected {
+	color: #000000;
+}
+
+#entry {
+	padding: 10px;
+}
+
+#entry:selected {
+	background-color: --wofi-color3;
+	background: #96CDFB;
+	color: --wofi-color0;
+}
+
+#unselected {}
+
+#selected {}
+
+#input,
+#entry:selected {
+	border-radius: 4px;
+}

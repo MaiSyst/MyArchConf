@@ -26,21 +26,21 @@ gaps inner 10
 
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart
-exec --no-startup-id dex --autostart --environment i3
+exec --no-startup-id dex --autostart --environment i3 &
 
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork &
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
-exec --no-startup-id nm-applet
+exec --no-startup-id nm-applet &
 
 # Use pactl to adjust volume in PulseAudio.
-set $refresh_i3status killall -SIGUSR1 i3status
+set $refresh_i3status killall -SIGUSR1 i3status &
 bindsym XF86AudioRaiseVolume exec --no-startup-id ~/.config/sxhkd/volume.sh up
 bindsym XF86AudioLowerVolume exec --no-startup-id ~/.config/sxhkd/volume.sh down
 bindsym XF86AudioMute exec --no-startup-id ~/.config/sxhkd/volume.sh mute
@@ -217,9 +217,10 @@ bindsym Mod4+r mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-#bar {
-#        status_command i3status
-#}
+bar {
+    status_command i3status-rs /home/maisystOrion/.config/i3status-rs/config.toml
+
+}
 
 #######################################################################
 # automatically start i3-config-wizard to offer the user to create a
@@ -232,7 +233,9 @@ bindsym Mod4+r mode "resize"
 # Please remove the following exec line:
 #######################################################################
 exec i3-config-wizard
-exec --no-startup-id feh --bg-fill ~/Pictures/wallpaper.jpg
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh --grayblocks_i3
-exec_always --no-startup-id picom --experimental-backends
+exec --no-startup-id feh --bg-fill ~/Pictures/w2.jpg
+#exec_always --no-startup-id $HOME/.config/polybar/launch.sh --grayblocks_i3
+#exec_always --no-startup-id picom --config ~/.config/picom/picom.conf
 exec_always --no-startup-id dunst
+exec_always /usr/lib/polkit-kde-authentication-agent-1 &
+exec_always --no-startup-id /usr/lib/pam_kwallet_init &

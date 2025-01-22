@@ -3,11 +3,13 @@ theme = "catppuccin_mocha"
 [editor]
 line-number = "relative"
 auto-pairs = true
-shell = ["zsh","-c"]
-bufferline = "always"
-auto-format=true
-preview-completion-insert=false
-completion-replace=false
+shell = ["fish","-c"]
+bufferline = "multiple"
+completion-replace=true
+end-of-line-diagnostics = "hint"
+[editor.inline-diagnostics]
+cursor-line = "error"
+other-lines = "error"
 [keys.normal]
 C-p = ["move_line_up","scroll_up"]
 C-n = ["move_line_down","scroll_down"]
@@ -19,7 +21,8 @@ C-right = [":buffer-next"]
 C-left = [":buffer-previous"]
 C-q = [":quit"]
 A-q = [":quit!"]
-
+[keys.normal.space]
+i = ":toggle lsp.display-inlay-hints"
 [keys.insert]
 C-s = [":write!"]
 A-s = [":write-all!"]
@@ -39,18 +42,21 @@ hidden = false
 
 [editor.lsp]
 display-messages = true
-display-inlay-hints=true
+display-inlay-hints=false
 
-[editor.gutters]
-layout = ["diff", "diagnostics", "line-numbers", "spacer"]
 
-# [editor.whitespace]
-# render = "all"
+[editor.statusline]
+mode.normal = "NORMAL"
+mode.insert = "INSERT"
+mode.select = "SELECT"
 
-# [editor.whitespace.characters]
-# space = "·"
+[editor.whitespace]
+render = "all"
+
+[editor.whitespace.characters]
+space = "·"
 # nbsp = "⍽"
-# tab = "→"
-# newline = "⏎"
+ tab = "|"
+newline = "⏎"
 # tabpad = "·" # Tabs will look like "→···" (depending on tab width)
 
