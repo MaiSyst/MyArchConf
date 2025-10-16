@@ -1,23 +1,27 @@
 icons_format = "{icon}"
 
 [theme]
-theme = "ctp-frappe"
+theme = "ctp-mocha"
 [theme.overrides]
-idle_bg = "#123456"
-idle_fg = "#abcdef"
+idle_bg = "#1e1e2e"
+idle_fg = "#ddc9f7"
 
 [icons]
 icons = "material-nf"
 [icons.overrides]
 bat = ["|E|", "|_|", "|=|", "|F|"]
 bat_charging = "|^| "
-
+[[block]]
+block = "focused_window"
+[block.format]
+full = " $title.str(max_w:15) |"
+short = " $title.str(max_w:10) |"
 [[block]]
 block = "cpu"
 info_cpu = 20
 warning_cpu = 50
 critical_cpu = 90
-
+format_alt = " $icon $frequency{ $boost|} "
 [[block]]
 block = "disk_space"
 path = "/"
@@ -50,19 +54,22 @@ driver = "upower"
 block = "bluetooth"
 mac = "F4:8C:50:7A:61:82"
 disconnected_format = ""
-format = " $icon "
+format = " $icon $battery_icon $percentage $name"
 [block.battery_state]
 "0..20" = "critical"
 "21..70" = "warning"
 "71..100" = "good"
+# [[block]]
+# block = "keyboard_layout"
+# driver = "sway"
+# format = " $layout "
+# [block.mappings]
+# "English (US)" = "EN"
+# "French" = "FR"
 [[block]]
-block = "keyboard_layout"
-driver = "sway"
-format = " $layout "
-[block.mappings]
-"English (Workman)" = "EN"
-"French" = "FR"
-
+block = "net"
+format = " $icon {$signal_strength $ssid $frequency|Wired connection}"
+format_alt = "$speed_down/$speed_up "
 [[block]]
 block = "music"
 [[block.click]]
@@ -82,6 +89,11 @@ action = "toggle_format"
 # format_up_to_date = " $icon system up to date "
 ### aur_command should output available updates to stdout (ie behave as echo -ne "update\n")
 #aur_command = "yay -Qua"
+[[block]]
+block = "kdeconnect"
+format = " $icon {$bat_icon $bat_charge |}{$notif_icon |}{$network_icon$network_strength $network_type |}"
+bat_good = 101
+
 [[block]]
 block = "time"
 interval = 5
