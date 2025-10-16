@@ -1,7 +1,7 @@
 include gruvbox_dark_hard.conf
 
 font_family JetbrainsMono Nerd Font
-font_size 18.0
+font_size 16.0
 font_features +zero
 tab_bar_edge top
 tab_bar_style powerline
@@ -10,9 +10,3 @@ cursor_trail 1
 cursor_trail_decay 0.1 0.4
 cursor_trail_start_threshold 2
 detect_urls yes
-
-
-# BEGIN_KITTY_THEME
-# Catppuccin-Mocha
-include current-theme.conf
-# END_KITTY_THEME
